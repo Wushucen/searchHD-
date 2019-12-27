@@ -76,7 +76,7 @@ export default {
 body { padding-top: 0px; }
 #wrapper {
     position: absolute;
-    top: 45px;
+    top: 55px;
     bottom: 0;
     left: 0px;
     right: 0px;

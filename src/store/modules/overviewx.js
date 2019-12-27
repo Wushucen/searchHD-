@@ -162,7 +162,7 @@ const overviewx = {
           }
         },
         error => {
-          console.log(error)
+          // console.log(error)
         }
       )
     },
@@ -178,7 +178,7 @@ const overviewx = {
           }
         },
         error => {
-          console.log(error)
+          // console.log(error)
         }
       )
     }

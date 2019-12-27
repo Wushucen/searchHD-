@@ -8,12 +8,13 @@ import store from './store'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.min.css'
 import 'element-ui/lib/theme-chalk/index.css';
+import 'jquery-jsonview/dist/jquery.jsonview.css'
+import 'jquery';
+
+// import 'jquery-jsonview' 
 
 import JsonView from 'jsonview-vue';
 Vue.use(JsonView);
-
-import 'jquery-jsonview/dist/jquery.jsonview.css'
-// import 'jquery-jsonview'
 
 Vue.config.productionTip = false
 
@@ -36,9 +37,6 @@ Vue.use(Element)
 // use json tree view
 import TreeView from 'vue-json-tree-view'
 Vue.use(TreeView)
-
-// import VueTreeView from 'vue-tree-view'
-// Vue.use(VueTreeView)
 
 // 路由跳转
 router.beforeEach((to, from, next) => {

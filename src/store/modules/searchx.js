@@ -37,7 +37,7 @@ const searchx = {
         error => {
           commit('SET_SHOW_SPINNER', false)
           commit('SET_RESULT', error)
-          console.log(error)
+          // console.log(error)
         }
       )
     },
@@ -50,7 +50,7 @@ const searchx = {
           }
         },
         error => {
-          console.log(error)
+          // console.log(error)
         }
       )
     },

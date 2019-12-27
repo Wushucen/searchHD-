@@ -112,7 +112,7 @@ const headerx = {
           }
         },
         error => {
-          console.log(error)
+          // console.log(error)
         }
       )
     },
@@ -125,7 +125,7 @@ const headerx = {
           }
         },
         error => {
-          console.log(error)
+          // console.log(error)
         }
       )
     },
@@ -142,7 +142,7 @@ const headerx = {
         },
         error => {
           commit('SET_DELETE_INDEX_ERROR', body.index + ' index delete error. timestamp:' + Date())
-          console.log(error)
+          // console.log(error)
         }
       )
     }

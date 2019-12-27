@@ -84,6 +84,7 @@ export default {
 }
 .navContai {
   background-color: #2c3e50;
+  height: 50px;
   display: flex;
   #elastic-logo-color {
     flex: 1;
@@ -95,27 +96,52 @@ export default {
   }
   .navbar-collapse {
     flex: 1;
-    height: 40px;
+    height: 35px;
     line-height: 1;
     .navbar-form {
       float: left;
       flex: 1;
-      
     }
     .form-group {
       display: flex;
       .input-group {
         float: left;
         flex: 1;
-        .input-group-addon{
-          width: 40px;
+        .input-group-addon {
+          width: 35px;
+          height: 35px;
           border-right: 20px;
+          line-height: 35px;
+          text-align: center;
+          border-radius: 4px 0 0 4px;
         }
+        #elastic-host {
+          width: 14em;
+          color: #181a1b;
+          float: left;
+          height: 35px;
+        }
+      }
+      .btn-primary {
+        height: 35px;
+        line-height: 1;
+        background-color: #337ab7;
+        border-color: #2e6da4;
       }
     }
     .navbar-text {
       flex: 1;
+      color: #9d9d9d;
+      margin-left: 20px;
       // float: left !important;
+    }
+    .pull-right {
+      li {
+        a {
+          color: #9d9d9d;
+          line-height: 35px;
+        }
+      }
     }
   }
 }
@@ -123,11 +149,6 @@ export default {
   display: block !important;
 }
 
-#elastic-host {
-  width: 14em;
-  color: #181a1b;
-  float: left;
-}
 .input-group .input-group-addon {
   background: #f6f7f7;
   color: #1dc07f;

@@ -14,7 +14,7 @@
                 </div>
             </div>
         </section>
-        <el-dialog title="提示" v-model="dialogVisible" size="tiny" :before-close="handleClose">
+        <el-dialog id="tooldialog" title="提示" :visible.sync="dialogVisible" size="small" :before-close="handleClose">
             <div><tree-view :data="info" :options="{maxDepth: 5}"></tree-view></div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
@@ -43,8 +43,8 @@ export default {
     ])
   },
   methods: {
-    getInfo: function (index, value) {
-      this.dialogVisible = true
+    getInfo(index, value) {
+      this.dialogVisible = true;
       if (value === 'tools-info') {
         this.info = this.health
       }
@@ -69,6 +69,9 @@ export default {
 </script>
 
 <style>
+#tooldialog {
+    /* width: 30% !important; */
+}
 #tools {
     margin-left: 80px;
 }
