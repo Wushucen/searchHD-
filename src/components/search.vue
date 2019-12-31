@@ -87,8 +87,7 @@
                   <i class="fa fa-spinner fa-spin fa-4x"></i>
                 </div>
                 <div id="jsonView">
-                  <!-- <jsonView :json="resultMessage"></jsonView> -->
-                  {{resultMessage}}
+                  <pre>{{ JSON.stringify(resultMessage, null, 4)  }}</pre>
                 </div>
               </div>
             </el-card>
@@ -284,6 +283,11 @@ export default {
 <style>
 .text-txt {
   cursor: default;
+}
+pre {
+    display: block;
+    font-size: 87.5%;
+    color: green !important;
 }
 .text-open {
   cursor: pointer;

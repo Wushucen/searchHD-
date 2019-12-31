@@ -176,6 +176,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .bg-purple {
   height: 20px;
 }
@@ -185,6 +186,7 @@ element.style {
 }
 .login {
   box-sizing: border-box;
+  background: #eee;
   // padding: 50px;
   display: flex;
   width: 100%;
@@ -194,8 +196,11 @@ element.style {
     text-align: center;
     width: 480px;
     margin: 8% auto;
-
+    background: #2c3e50;
     // z-index: 99;
+    h2 {
+      color: #1dc07f;
+    }
     .el-input {
       margin-top: 25px;
     }
@@ -205,9 +210,17 @@ element.style {
     .el-tag {
       margin-left: 0;
     }
+    .el-link {
+      color: #9d9d9d;
+    }
+    .el-link:hover {
+      color: #9d9d9d;
+    }
     .el-button {
       margin-top: 20px;
       width: 100%;
+      background-color: #337ab7;
+      border-color: #2e6da4;
     }
   }
   .box-card[data-v-7589b93f] {

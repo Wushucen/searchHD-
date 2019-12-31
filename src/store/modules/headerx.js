@@ -59,7 +59,8 @@ const headerx = {
       state.statusStyleObject = style
     },
     SET_HEALTH: (state, health) => {
-      console.log(health);
+      state.health = health;
+
     },
     SET_INDEX_LIST: (state, list) => {
       state.indexList = list;
@@ -75,7 +76,6 @@ const headerx = {
   },
   actions: {
     CookieSetServerHost({ commit }, serverhost) {
-      console.log('000000000001111')
       serverhost = serverhost.trim()
       if (serverhost === '') {
         serverhost = 'http://192.168.88.138:9200'
@@ -86,10 +86,8 @@ const headerx = {
       commit('SET_SERVER_HOST', serverhost)
       // VueCookie.set('elasticHDServerHost', serverhost, { expires: '1D' })
       // window.location.reload();//该方法强迫浏览器刷新当前页面。
-      console.log('0000000000');
     },
     CookieGetServerHost({ commit }) {
-      console.log('111111111111');
       // console.log(VueCookie.get('elasticHDServerHost'));
       if (VueCookie.get('elasticHDServerHost') !== null) {
         commit('SET_SERVER_HOST', VueCookie.get('elasticHDServerHost'))
@@ -99,7 +97,6 @@ const headerx = {
       axios.post("api" + body.url, { 'host': body.host })
         .then(
           response => {
-            console.log('22222222222222');
             if (response.data.result == 0) {
               switch (response.data.data.status) {
                 case 'green':
@@ -127,8 +124,6 @@ const headerx = {
       axios.post('api' + body.url, { 'host': body.host })
         .then(
           response => {
-            console.log('33333333333333');
-            // console.log(response.data.data);
             if (response.data.result == 0) {
               commit('SET_INDEX_LIST', response.data.data)
             }

@@ -125,6 +125,7 @@
 <script>
 import echarts from "echarts";
 import { mapGetters } from "vuex";
+import { red } from "color-name";
 export default {
   name: "overview",
   data: function() {
@@ -250,7 +251,6 @@ export default {
         }
       };
       function b2b(value) {
-        //  console.log(params.name)
         var gb = 1024 * 1024 * 1024;
         var mb = 1024 * 1024;
         var kb = 1024;
@@ -266,17 +266,6 @@ export default {
         return value + "B";
       }
       var option = {
-        // background: "pink",
-        // title: {
-        //   text: "1111",
-        //   top: "center",
-        //   left: "center",
-        //   textAlign: "center",
-        //   color: "#eee",
-        //   textStyle: {
-        //     color: "#000"
-        //   }
-        // },
         tooltip: {
           trigger: "item",
           show: true, // 必须引入 tooltip 组件
@@ -364,7 +353,21 @@ export default {
             center: ["7%", "50%"],
             radius: [40, 55],
             x: "0%",
-            itemStyle: labelFromatter,
+            label: {
+              normal: {
+                show: true,
+                position: "center",
+                formatter: function() {
+                  let jvm = Math.ceil(
+                    charts.vm_mem_used / (1024 * 1024 * 1024)
+                  );
+                  return `JVM\n${jvm}GB`;
+                },
+                textStyle: {
+                  color: "rgb(194,53,49)"
+                }
+              }
+            },
             data: [
               {
                 name: "Jvm-mem",
@@ -379,7 +382,19 @@ export default {
             center: ["23%", "50%"],
             radius: [40, 55],
             x: "0%",
-            itemStyle: labelFromatter,
+            label: {
+              normal: {
+                show: true,
+                position: "center",
+                formatter: function() {
+                  let jvm = Math.ceil(charts.memfree / (1024 * 1024 * 1024));
+                  return `Mem\n${jvm}GB`;
+                },
+                textStyle: {
+                  color: "rgb(47,69,84)"
+                }
+              }
+            },
             data: [
               {
                 name: "Mem-total",
@@ -394,7 +409,19 @@ export default {
             center: ["39%", "50%"],
             radius: [40, 55],
             x: "0%",
-            itemStyle: labelFromatter,
+            label: {
+              normal: {
+                show: true,
+                position: "center",
+                formatter: function() {
+                  let jvm = Math.ceil(charts.fsfree / (1024 * 1024 * 1024));
+                  return `Fs\n${jvm}GB`;
+                },
+                textStyle: {
+                  color: "rgb(97,160,168)"
+                }
+              }
+            },
             data: [
               {
                 name: "Fs-total",
@@ -413,7 +440,19 @@ export default {
             center: ["55%", "50%"],
             radius: [40, 55],
             x: "0%",
-            itemStyle: labelFromatter,
+            label: {
+              normal: {
+                show: true,
+                position: "center",
+                formatter: function() {
+                  let jvm = Math.ceil(charts.memfree / (1024 * 1024 * 1024));
+                  return `FieldData\n${jvm}GB`;
+                },
+                textStyle: {
+                  color: "rgb(212,130,101)"
+                }
+              }
+            },
             data: [
               {
                 name: "Field-mem",
@@ -432,7 +471,19 @@ export default {
             center: ["71%", "50%"],
             radius: [40, 55],
             x: "0%",
-            itemStyle: labelFromatter,
+            label: {
+              normal: {
+                show: true,
+                position: "center",
+                formatter: function() {
+                  let jvm = Math.ceil(charts.memfree / (1024 * 1024 * 1024));
+                  return `QueryCache\n${jvm}GB`;
+                },
+                textStyle: {
+                  color: "rgb(145,199,174)"
+                }
+              }
+            },
             data: [
               {
                 name: "QueryCache-mem",
@@ -451,7 +502,18 @@ export default {
             center: ["87%", "50%"],
             radius: [40, 55],
             x: "0%",
-            itemStyle: labelFromatter,
+            label: {
+              normal: {
+                show: true,
+                position: "center",
+                formatter: function() {
+                  return `CPU\n${charts.cpufree}%`;
+                },
+                textStyle: {
+                  color: "rgb(116,159,131)"
+                }
+              }
+            },
             data: [
               {
                 name: "CPUFree",
@@ -575,7 +637,7 @@ export default {
 
 .widget-right .large {
   color: #5f6468;
-  font-size: 2em;
+  font-size: 1.3em;
 }
 
 .panel-pink .widget-left {
