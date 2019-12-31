@@ -10,7 +10,7 @@
               </el-col>
               <el-col :span="24">
                 <div style="text-align:right;">
-                  <el-button type="info" v-on:click="sqlExplain">Explain</el-button>
+                  <el-button type="primary" v-on:click="sqlExplain">Explain</el-button>
                 </div>
               </el-col>
               <el-col :span="24">
@@ -74,6 +74,15 @@ export default {
 <style>
 .el-collapse-item__header {
   padding-left: 20px;
+  padding-right: 20px;
+  font-size: 16px !important;
+}
+.el-collapse-item__content {
+  padding: 20px;
+  font-size: 14px !important;
+}
+.el-dialog {
+  width: 30% !important;
 }
 </style>
 

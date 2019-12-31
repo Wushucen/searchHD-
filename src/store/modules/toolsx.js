@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import Axios from 'axios'
 Vue.use(VueResource)
 const toolsbarx = {
   state: {
@@ -19,24 +20,24 @@ const toolsbarx = {
     }
   },
   actions: {
-    ConvertSQLToDSL ({ commit }, body) {
+    ConvertSQLToDSL({ commit }, body) {
       commit('SET_SQL_BODY', body.sql)
-      Vue.http.post(body.url, body)
-      .then(
-        response => {
-          if (response.body.result === 0) {
-            commit('SET_DSL_BODY', response.body.data)
-            commit('SET_CURRENT_ERROR', '')
-          } else {
-            console.log(222)
-            commit('SET_CURRENT_ERROR', response.body.data)
+      Axios.post("api" + body.url, body)
+        .then(
+          response => {
+            if (response.data.result === 0) {
+              commit('SET_DSL_BODY', response.data.data)
+              commit('SET_CURRENT_ERROR', '')
+            } else {
+              console.log(response.data)
+              commit('SET_CURRENT_ERROR', '{"result":1,"data":{"error":"syntax error at position 2"}}')
+            }
+          },
+          error => {
+            commit('SET_CURRENT_ERROR', error)
+            console.log(error)
           }
-        },
-        error => {
-          commit('SET_CURRENT_ERROR', error)
-          console.log(error)
-        }
-      )
+        )
     }
   }
 }

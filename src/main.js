@@ -22,6 +22,9 @@ Vue.config.productionTip = false
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
 
+import Cookie from 'js-cookie'
+Vue.prototype.cookies = Cookie;
+
 // 使用VueResource插件
 import VueResource from 'vue-resource'
 Vue.use(VueResource)

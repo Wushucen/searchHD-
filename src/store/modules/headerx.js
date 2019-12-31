@@ -1,12 +1,13 @@
 import VueCookie from 'vue-cookie'
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import axios from 'axios'
 Vue.use(VueResource)
 const headerx = {
   state: {
-    serverHost: 'http://127.0.0.1:9200',
+    serverHost: 'http://192.168.88.138:9200',
     status: '未连接',
-    githubUrl: 'https://github.com/farmerx',
+    githubUrl: '#',
     statusStyleObject: {
       color: '#001422',
       background: '#ffffff',
@@ -58,93 +59,102 @@ const headerx = {
       state.statusStyleObject = style
     },
     SET_HEALTH: (state, health) => {
-      state.health = health
+      console.log(health);
     },
     SET_INDEX_LIST: (state, list) => {
-      state.indexList = list
+      state.indexList = list;
     },
     SET_DELEDE_INDEX_LIST: (state, indexName) => {
       state.indexList.forEach(function (val, index, arr) {
         if (val['index'] === indexName) {
+          console.log(state.indexList);
           state.indexList = arr.slice(0, index).concat(arr.slice(index + 1, arr.length))
         }
       })
     }
   },
   actions: {
-    CookieSetServerHost ({ commit }, serverhost) {
+    CookieSetServerHost({ commit }, serverhost) {
+      console.log('000000000001111')
       serverhost = serverhost.trim()
       if (serverhost === '') {
-        serverhost = '/api'
+        serverhost = 'http://192.168.88.138:9200'
       }
       if (serverhost.indexOf('http://') === -1) {
         serverhost = 'http://' + serverhost
       }
       commit('SET_SERVER_HOST', serverhost)
-      VueCookie.set('elasticHDServerHost', serverhost, { expires: '1D' })
-      window.location.reload()
+      // VueCookie.set('elasticHDServerHost', serverhost, { expires: '1D' })
+      // window.location.reload();//该方法强迫浏览器刷新当前页面。
+      console.log('0000000000');
     },
-    CookieGetServerHost ({ commit }) {
+    CookieGetServerHost({ commit }) {
+      console.log('111111111111');
+      // console.log(VueCookie.get('elasticHDServerHost'));
       if (VueCookie.get('elasticHDServerHost') !== null) {
         commit('SET_SERVER_HOST', VueCookie.get('elasticHDServerHost'))
       }
     },
-    HttpPost ({ commit }, body) {
-      Vue.http.post(body.url, {'host': body.host})
-      .then(
-        response => {
-          if (response.body.result === 0) {
-            switch (response.body.data.status) {
-              case 'green':
-                commit('SET_STATUS', 'Green')
-                commit('SET_STATUS_STYLE', { color: '#001422', background: '#28C768', textAlign: 'center', borderRadius: '4px', fontWeight: '800' })
-                break
-              case 'yellow':
-                commit('SET_STATUS', 'Yellow')
-                commit('SET_STATUS_STYLE', { color: '#001422', background: '#EEEE11', textAlign: 'center', borderRadius: '4px', fontWeight: '800' })
-                break
-              case 'red':
-                commit('SET_STATUS', 'Red')
-                commit('SET_STATUS_STYLE', { color: '#001422', background: '#EE1111', textAlign: 'center', borderRadius: '4px', fontWeight: '800' })
-                break
+    HttpPost({ commit }, body) {
+      axios.post("api" + body.url, { 'host': body.host })
+        .then(
+          response => {
+            console.log('22222222222222');
+            if (response.data.result == 0) {
+              switch (response.data.data.status) {
+                case 'green':
+                  commit('SET_STATUS', 'Green')
+                  commit('SET_STATUS_STYLE', { color: '#001422', background: '#28C768', textAlign: 'center', borderRadius: '4px', fontWeight: '800' })
+                  break
+                case 'yellow':
+                  commit('SET_STATUS', 'Yellow')
+                  commit('SET_STATUS_STYLE', { color: '#001422', background: '#EEEE11', textAlign: 'center', borderRadius: '4px', fontWeight: '800' })
+                  break
+                case 'red':
+                  commit('SET_STATUS', 'Red')
+                  commit('SET_STATUS_STYLE', { color: '#001422', background: '#EE1111', textAlign: 'center', borderRadius: '4px', fontWeight: '800' })
+                  break
+              }
+              commit('SET_HEALTH', response.data.data)
             }
-            commit('SET_HEALTH', response.body.data)
+          },
+          error => {
+            console.log(error)
           }
-        },
-        error => {
-          // console.log(error)
-        }
-      )
+        )
     },
-    GetIndexList ({ commit }, body) {
-      Vue.http.post(body.url, {'host': body.host})
-      .then(
-        response => {
-          if (response.body.result === 0) {
-            commit('SET_INDEX_LIST', response.body.data)
+    GetIndexList({ commit }, body) {
+      axios.post('api' + body.url, { 'host': body.host })
+        .then(
+          response => {
+            console.log('33333333333333');
+            // console.log(response.data.data);
+            if (response.data.result == 0) {
+              commit('SET_INDEX_LIST', response.data.data)
+            }
+          },
+          error => {
+            console.log(error)
           }
-        },
-        error => {
-          // console.log(error)
-        }
-      )
+        )
     },
-    DeleteIndexByName ({ commit }, body) {
-      Vue.http.post(body.url, {'host': body.host, 'index': body.index})
-      .then(
-        response => {
-          if (response.body.result === 0) {
-            commit('SET_DELETE_INDEX_SUCCESS', body.index + ' index delete success.')
-            commit('SET_DELEDE_INDEX_LIST', body.index)
-          } else {
+    DeleteIndexByName({ commit }, body) {
+      axios.post('api' + body.url, { 'host': body.host, 'index': body.index })
+        .then(
+          response => {
+            console.log('4444444444');
+            if (response.data.result == 0) {
+              commit('SET_DELETE_INDEX_SUCCESS', body.index + ' index delete success.')
+              commit('SET_DELEDE_INDEX_LIST', body.index)
+            } else {
+              commit('SET_DELETE_INDEX_ERROR', body.index + ' index delete error. timestamp:' + Date())
+            }
+          },
+          error => {
             commit('SET_DELETE_INDEX_ERROR', body.index + ' index delete error. timestamp:' + Date())
+            console.log(error)
           }
-        },
-        error => {
-          commit('SET_DELETE_INDEX_ERROR', body.index + ' index delete error. timestamp:' + Date())
-          // console.log(error)
-        }
-      )
+        )
     }
   }
 }

@@ -49,7 +49,7 @@ export default {
       username: "",
       password: "",
       //存储用户名和密码的数据，随意填写
-      userinfo: [{ "123": "321" }, { "345": "543" }],
+      userinfo: [{ "123": "123" }, { "345": "354" }],
       index: 0,
       bigChar: false,
       firstTochar: false,
@@ -134,6 +134,13 @@ export default {
           Object.values(this.userinfo[i]) == this.password
         ) {
           localStorage.setItem("user", this.username);
+          this.cookies.set("ki_r", "");
+          this.cookies.set("isNotIncognito", true);
+          this.cookies.set("_ga", "GA1.1.376585706.1572053366");
+          this.cookies.set(
+            "ki_t",
+            "1572053355478%3B1572053355478%3B1572056884546%3B1%3B3"
+          );
           this.$message({
             message: "登录成功！",
             type: "success"

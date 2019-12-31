@@ -24,7 +24,7 @@
               </div>
               <input class="form-control" v-model="serverhost" id="elastic-host" />
             </div>
-            <button @click.prevent="elasticHDConnect" class="btn btn-primary">Connect</button>
+            <button @click="elasticHDConnect" class="btn btn-primary">Connect</button>
           </div>
         </form>
         <p class="navbar-text">
@@ -60,7 +60,7 @@ export default {
       this.$store.dispatch("CookieSetServerHost", this.serverhost);
     }
   },
-  created: function() {
+  created() {
     this.$store.dispatch("CookieGetServerHost");
     this.serverhost = this.$store.getters.serverhost;
     this.$store.dispatch("HttpPost", {

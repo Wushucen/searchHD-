@@ -23,11 +23,11 @@
         <div v-else-if="activeIndex === 5">
           <Help></Help>
         </div>
-        <div v-else-if="activeIndex === 6">
+        <!-- <div v-else-if="activeIndex === 6">
           <Monitor></Monitor>
         </div>
-        <div v-else-if="activeIndex === 7">
-          <Queryui></Queryui>
+        <div v-else-if="activeIndex === 7"> 
+          <Queryui></Queryui>-->
         </div>
       </div>
     </div>

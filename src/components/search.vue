@@ -79,7 +79,7 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="text-txt">
-                  <i class="fa fa-search"></i>查询结果 
+                  <i class="fa fa-search"></i>查询结果
                 </span>
               </div>
               <div>
@@ -87,7 +87,7 @@
                   <i class="fa fa-spinner fa-spin fa-4x"></i>
                 </div>
                 <div id="jsonView">
-                  <!-- <tree-view :data=""></tree-view> -->
+                  <!-- <jsonView :json="resultMessage"></jsonView> -->
                   {{resultMessage}}
                 </div>
               </div>
@@ -138,6 +138,7 @@
 <script>
 import { mapGetters } from "vuex";
 import $ from "jquery";
+import jsonView from "./jsonview.vue";
 export default {
   name: "search",
   data: function() {
@@ -157,10 +158,15 @@ export default {
   computed: {
     ...mapGetters(["options", "result", "serverhost", "showSpinner"])
   },
+  components: {
+    jsonView
+  },
   watch: {
     result(val, oldval) {
       try {
-        $("#jsonView").JSONView(this.result);
+        $("#jsonView").JSONView(
+          JSON.stringify(JSON.parse(this.result), null, 5)
+        );
         this.resultMessage = "";
       } catch (e) {
         this.resultMessage = this.result;
@@ -168,7 +174,7 @@ export default {
     }
   },
   methods: {
-    handleSearch: function(index, row) {
+    handleSearch(index, row) {
       this.showhistory = false;
       this.inputMethod = row.method;
       this.inputIndex = row.indices;
@@ -177,14 +183,14 @@ export default {
       this.inputTextarea = row.body;
       this.search();
     },
-    history: function() {
+    history() {
       this.showhistory = true;
       this.historyList = this.getLocalStorage().history;
     },
-    toolsTip: function() {
+    toolsTip() {
       alert(`toolstip`);
     },
-    search: function() {
+    search() {
       try {
         JSON.stringify(JSON.parse(this.inputTextarea), null, 5);
         this.errorMessage = "";
@@ -210,7 +216,7 @@ export default {
       this.$store.dispatch("SetShowSpinner", true);
       this.$store.dispatch("CURLSerachResult", tmpVal);
     },
-    pretty: function() {
+    pretty() {
       try {
         this.inputTextarea = JSON.stringify(
           JSON.parse(this.inputTextarea),
@@ -222,7 +228,7 @@ export default {
         this.errorMessage = e.name + ": " + e.message;
       }
     },
-    getLocalStorage: function() {
+    getLocalStorage() {
       if (!window.localStorage) {
         return { history: [] };
       }
@@ -231,7 +237,7 @@ export default {
       }
       return JSON.parse(localStorage.getItem("elasticHDHistor"));
     },
-    setLocalStorage: function(data) {
+    setLocalStorage(data) {
       if (!window.localStorage) {
         return;
       }
@@ -245,7 +251,7 @@ export default {
       history.history.push(data);
       localStorage.setItem("elasticHDHistor", JSON.stringify(history));
     },
-    getTime: function() {
+    getTime() {
       var date = new Date();
       var seperator1 = "-";
       var seperator2 = ":";
@@ -292,5 +298,12 @@ export default {
   text-align: center;
   margin: 0 auto;
   color: #ccc;
+}
+#jsonView {
+  width: 100%;
+  height: auto;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
 }
 </style>

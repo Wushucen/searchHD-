@@ -1,16 +1,6 @@
 
 
-// const webpack = require('webpack')
 module.exports = {
-  // configureWebpack: {
-  //   plugins: [
-  //     new webpack.ProvidePlugin({
-  //       $: "jquery",
-  //       jQuery: "jquery",
-  //       "windows.jQuery": "jquery"
-  //     })
-  //   ]
-  // },
   productionSourceMap: false,
   //禁用eslint
   lintOnSave: false,
@@ -19,13 +9,13 @@ module.exports = {
       warning: false,
       errors: false
     },
-    host: "localhost",
+    host: "0.0.0.0",
     port: 8080, // 端口号
     open: true, //配置自动启动浏览器
     hot: true,
     proxy: {
       "/api": {
-        target: "http://192.168.88.138:9200/", // 要访问的接口域名
+        target: "http://127.0.0.1:9800/", // 要访问的接口域名
         ws: true, // 是否启用websockets
         changeOrigin: true,//允许跨域
         pathRewrite: {

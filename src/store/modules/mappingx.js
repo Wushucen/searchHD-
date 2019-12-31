@@ -23,30 +23,30 @@ const mappingx = {
     }
   },
   actions: {
-    HandleIndexTemplate ({ commit }, body) {
-      Vue.http.post(body.url, body)
-      .then(
-        response => {
-          if (body.method === 'GET') {
-            commit('SET_MAPPING_INFO', response.body.data)
-            return
+    HandleIndexTemplate({ commit }, body) {
+      axios.post("api" + body.url, body)
+        .then(
+          response => {
+            if (body.method === 'GET') {
+              commit('SET_MAPPING_INFO', response.body.data)
+              return
+            }
+            if (response.body.result === 0 && body.method === 'DELETE') {
+              // commit('SET_TOGGLE_MAPPING', !body.toggle)
+              commit('SET_DELETE_MAPPING_SUCCESS', body.indices + ' Delete Success.')
+            } else {
+              commit('SET_DELETE_MAPPING_ERROR', body.indices + ' Delete Error.')
+            }
+          },
+          error => {
+            console.log(error)
+            if (body.method === 'GET') {
+              commit('SET_MAPPING_INFO', { info: '服务器异常' })
+            } else {
+              commit('SET_DELETE_MAPPING_ERROR', body.indices + ' Delete Error.')
+            }
           }
-          if (response.body.result === 0 && body.method === 'DELETE') {
-            // commit('SET_TOGGLE_MAPPING', !body.toggle)
-            commit('SET_DELETE_MAPPING_SUCCESS', body.indices + ' Delete Success.')
-          } else {
-            commit('SET_DELETE_MAPPING_ERROR', body.indices + ' Delete Error.')
-          }
-        },
-        error => {
-          console.log(error)
-          if (body.method === 'GET') {
-            commit('SET_MAPPING_INFO', {info: '服务器异常'})
-          } else {
-            commit('SET_DELETE_MAPPING_ERROR', body.indices + ' Delete Error.')
-          }
-        }
-      )
+        )
     }
   }
 }
