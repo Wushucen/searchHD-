@@ -17,7 +17,7 @@
     "jquery-jsonview": "^1.2.3",
     "js-cookie": "^2.2.1",
     "jsonview-vue": "^2.0.1",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "v-tooltip": "^2.0.2",
     "vue": "^2.6.10",
     "vue-cookie": "^1.1.4",
